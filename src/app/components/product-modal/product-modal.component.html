@@ -1,0 +1,68 @@
+@if (ui.selectedProduct(); as p) {
+  <div class="backdrop" (click)="close()"></div>
+  <div class="modal" role="dialog" aria-modal="true" [attr.aria-label]="p.name">
+    <button class="icon-btn close" (click)="close()" aria-label="Fechar">
+      <i class="uil uil-times"></i>
+    </button>
+
+    <div class="media" [style.background]="p.tint">
+      <span class="ghost-name">{{ p.name }}</span>
+      <img [src]="p.image" [alt]="p.name" />
+    </div>
+
+    <div class="details">
+      <span class="eyebrow">{{ p.category }}</span>
+      <h2>{{ p.name }}</h2>
+
+      <div class="rating">
+        @for (s of stars(p.rating); track $index) {
+          <i class="uil" [class.uil-star]="s !== 0.5" [class.uil-star-half-alt]="s === 0.5" [class.empty]="s === 0"></i>
+        }
+        <span>{{ p.rating }} · avaliações de clientes</span>
+      </div>
+
+      <div class="price">
+        <strong>{{ p.price | currency }}</strong>
+        @if (p.oldPrice) {
+          <s>{{ p.oldPrice | currency }}</s>
+        }
+      </div>
+      <p class="installments">ou 3x de {{ p.price / 3 | currency }} sem juros</p>
+
+      <p class="description">{{ p.description }}</p>
+
+      <div class="block">
+        <div class="block-head">
+          <span>Tamanho</span>
+          @if (sizeError()) {
+            <span class="error">Escolha um tamanho</span>
+          }
+        </div>
+        <div class="sizes" [class.shake]="sizeError()">
+          @for (s of p.sizes; track s) {
+            <button class="size" [class.selected]="size() === s" (click)="selectSize(s)">{{ s }}</button>
+          }
+        </div>
+      </div>
+
+      <div class="buy">
+        <div class="qty">
+          <button (click)="changeQty(-1)" aria-label="Diminuir"><i class="uil uil-minus"></i></button>
+          <span>{{ qty() }}</span>
+          <button (click)="changeQty(1)" aria-label="Aumentar"><i class="uil uil-plus"></i></button>
+        </div>
+        <button class="btn btn-primary add" (click)="addToCart(p)">
+          <i class="uil uil-shopping-bag"></i> Adicionar ao carrinho
+        </button>
+        <button class="icon-btn wish" [class.active]="wishlist.has(p)" (click)="wishlist.toggle(p)" aria-label="Favoritar">
+          <i class="uil uil-heart"></i>
+        </button>
+      </div>
+
+      <ul class="perks">
+        <li><i class="uil uil-truck"></i> Frete grátis acima de R$ 299</li>
+        <li><i class="uil uil-redo"></i> 30 dias para troca</li>
+      </ul>
+    </div>
+  </div>
+}

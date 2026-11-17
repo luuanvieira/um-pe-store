@@ -1,0 +1,33 @@
+@let p = product();
+<article class="card" (click)="ui.openProduct(p)" (keydown.enter)="ui.openProduct(p)" tabindex="0">
+  <div class="media" [style.background]="p.tint">
+    @if (p.badge) {
+      <span class="badge" [class.sale]="p.oldPrice">
+        {{ p.oldPrice ? '-' + discount(p) + '%' : p.badge }}
+      </span>
+    }
+    <button
+      class="wish"
+      [class.active]="wishlist.has(p)"
+      (click)="toggleWish($event)"
+      [attr.aria-label]="wishlist.has(p) ? 'Remover dos favoritos' : 'Adicionar aos favoritos'"
+    >
+      <i class="uil uil-heart"></i>
+    </button>
+    <img [src]="p.image" [alt]="p.name" loading="lazy" />
+    <span class="quick">Ver detalhes <i class="uil uil-arrow-right"></i></span>
+  </div>
+
+  <div class="info">
+    <div>
+      <span class="category">{{ p.category }}</span>
+      <h3>{{ p.name }}</h3>
+    </div>
+    <div class="price">
+      @if (p.oldPrice) {
+        <s>{{ p.oldPrice | currency }}</s>
+      }
+      <strong>{{ p.price | currency }}</strong>
+    </div>
+  </div>
+</article>

@@ -1,0 +1,70 @@
+<div class="backdrop" [class.open]="cart.isOpen()" (click)="cart.close()"></div>
+
+<aside class="drawer" [class.open]="cart.isOpen()" aria-label="Carrinho">
+  <header class="head">
+    <h3>Seu carrinho <span>({{ cart.count() }})</span></h3>
+    <button class="icon-btn" (click)="cart.close()" aria-label="Fechar carrinho">
+      <i class="uil uil-times"></i>
+    </button>
+  </header>
+
+  @if (cart.items().length === 0) {
+    <div class="empty-state">
+      <i class="uil uil-shopping-bag"></i>
+      <h3>Seu carrinho está vazio</h3>
+      <p>Que tal dar uma olhada na coleção?</p>
+      <a routerLink="/loja" class="btn btn-dark" (click)="cart.close()">Explorar a loja</a>
+    </div>
+  } @else {
+    <div class="shipping">
+      @if (cart.missingForFreeShipping() > 0) {
+        <p>Faltam <strong>{{ cart.missingForFreeShipping() | currency }}</strong> para frete grátis</p>
+      } @else {
+        <p><i class="uil uil-check-circle"></i> Você ganhou <strong>frete grátis</strong>!</p>
+      }
+      <div class="bar"><span [style.width.%]="progress()"></span></div>
+    </div>
+
+    <ul class="items">
+      @for (item of cart.items(); track item.product.id + '-' + item.size) {
+        <li class="item">
+          <div class="thumb" [style.background]="item.product.tint">
+            <img [src]="item.product.image" [alt]="item.product.name" />
+          </div>
+          <div class="item-info">
+            <div class="item-top">
+              <div>
+                <h4>{{ item.product.name }}</h4>
+                <span class="meta">{{ item.product.category }} · Tam. {{ item.size }}</span>
+              </div>
+              <button class="remove" (click)="cart.remove(item)" aria-label="Remover">
+                <i class="uil uil-trash-alt"></i>
+              </button>
+            </div>
+            <div class="item-bottom">
+              <div class="qty">
+                <button (click)="cart.changeQty(item, -1)" aria-label="Diminuir"><i class="uil uil-minus"></i></button>
+                <span>{{ item.qty }}</span>
+                <button (click)="cart.changeQty(item, 1)" aria-label="Aumentar"><i class="uil uil-plus"></i></button>
+              </div>
+              <strong>{{ item.product.price * item.qty | currency }}</strong>
+            </div>
+          </div>
+        </li>
+      }
+    </ul>
+
+    <footer class="summary">
+      <div class="row"><span>Subtotal</span><span>{{ cart.subtotal() | currency }}</span></div>
+      <div class="row">
+        <span>Frete</span>
+        <span>{{ cart.shipping() === 0 ? 'Grátis' : (cart.shipping() | currency) }}</span>
+      </div>
+      <div class="row total"><span>Total</span><span>{{ cart.total() | currency }}</span></div>
+      <button class="btn btn-primary btn-block" (click)="checkout()">
+        Finalizar compra <i class="uil uil-arrow-right"></i>
+      </button>
+      <button class="clear" (click)="cart.clear()">Esvaziar carrinho</button>
+    </footer>
+  }
+</aside>

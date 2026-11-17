@@ -1,0 +1,45 @@
+<section class="auth">
+  <div class="auth-card compact">
+    <aside class="auth-side">
+      <div>
+        <h2>Bom te ver <span>de novo</span>.</h2>
+        <p>Entre para ver seus favoritos e finalizar suas compras.</p>
+      </div>
+      <img [src]="image" alt="" />
+    </aside>
+
+    <form class="auth-form" [formGroup]="form" (ngSubmit)="submit()" novalidate>
+      <h1>Entrar</h1>
+      <p class="lead">Ainda não tem conta? <a routerLink="/registrar">Criar conta</a></p>
+
+      <div class="form-grid">
+        <div class="field full" [class.invalid]="invalid('usuario')">
+          <label for="usuario">Usuário ou e-mail</label>
+          <input id="usuario" formControlName="usuario" placeholder="seu.usuario" autocomplete="username" />
+          @if (invalid('usuario')) { <span class="error">Informe seu usuário</span> }
+        </div>
+
+        <div class="field full" [class.invalid]="invalid('senha')">
+          <label for="senha">Senha</label>
+          <div class="password-wrap">
+            <input id="senha" [type]="showPassword ? 'text' : 'password'" formControlName="senha" placeholder="Sua senha" autocomplete="current-password" />
+            <button type="button" (click)="showPassword = !showPassword" aria-label="Mostrar senha">
+              <i class="uil" [class.uil-eye]="!showPassword" [class.uil-eye-slash]="showPassword"></i>
+            </button>
+          </div>
+          @if (invalid('senha')) { <span class="error">A senha precisa ter pelo menos 6 caracteres</span> }
+        </div>
+      </div>
+
+      <div class="row-between">
+        <label class="checkbox">
+          <input type="checkbox" formControlName="lembrar" />
+          Lembrar de mim
+        </label>
+        <a href="#" (click)="$event.preventDefault()">Esqueci a senha</a>
+      </div>
+
+      <button type="submit" class="btn btn-primary btn-block">Entrar <i class="uil uil-arrow-right"></i></button>
+    </form>
+  </div>
+</section>

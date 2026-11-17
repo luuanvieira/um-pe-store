@@ -1,0 +1,44 @@
+<header class="header" [class.scrolled]="scrolled()">
+  <div class="container header-inner">
+    <a routerLink="/" class="logo" (click)="closeMenu()">
+      <img src="logo.svg" class="logo-mark" alt="" />
+      <span class="logo-text">Um Pé <small>Sneaker Store</small></span>
+    </a>
+
+    <nav class="nav" [class.open]="menuOpen()">
+      @for (link of links; track link.path) {
+        <a
+          [routerLink]="link.path"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: link.exact }"
+          (click)="closeMenu()"
+          >{{ link.label }}</a
+        >
+      }
+      <a routerLink="/login" class="nav-mobile-only" (click)="closeMenu()">Entrar</a>
+      <a routerLink="/registrar" class="nav-mobile-only" (click)="closeMenu()">Criar conta</a>
+    </nav>
+
+    <div class="actions">
+      <a routerLink="/login" class="login-link">
+        <i class="uil uil-user"></i>
+        <span>Entrar</span>
+      </a>
+      <a routerLink="/favoritos" class="icon-btn" aria-label="Favoritos">
+        <i class="uil uil-heart"></i>
+        @if (wishlist.count() > 0) {
+          <span class="counter">{{ wishlist.count() }}</span>
+        }
+      </a>
+      <button class="icon-btn" aria-label="Abrir carrinho" (click)="cart.open()">
+        <i class="uil uil-shopping-bag"></i>
+        @if (cart.count() > 0) {
+          <span class="counter">{{ cart.count() }}</span>
+        }
+      </button>
+      <button class="icon-btn menu-btn" aria-label="Menu" (click)="toggleMenu()">
+        <i class="uil" [class.uil-bars]="!menuOpen()" [class.uil-times]="menuOpen()"></i>
+      </button>
+    </div>
+  </div>
+</header>

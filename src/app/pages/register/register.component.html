@@ -1,0 +1,104 @@
+<section class="auth">
+  <div class="auth-card">
+    <aside class="auth-side">
+      <div>
+        <h2>Ganhe <span>10% OFF</span> na primeira compra.</h2>
+        <p>Crie sua conta em menos de um minuto.</p>
+      </div>
+      <img [src]="image" alt="" />
+      <ul>
+        <li><i class="uil uil-heart"></i> Salve seus favoritos</li>
+        <li><i class="uil uil-package"></i> Acompanhe seus pedidos</li>
+        <li><i class="uil uil-bell"></i> Receba novidades antes</li>
+      </ul>
+    </aside>
+
+    <form class="auth-form" [formGroup]="form" (ngSubmit)="submit()" novalidate>
+      <h1>Criar conta</h1>
+      <p class="lead">Já tem cadastro? <a routerLink="/login">Entrar</a></p>
+
+      <div class="form-grid">
+        <div class="field full" [class.invalid]="error('nome')">
+          <label for="nome">Nome completo</label>
+          <input id="nome" formControlName="nome" placeholder="Seu nome" autocomplete="name" />
+          @if (error('nome'); as msg) { <span class="error">{{ msg }}</span> }
+        </div>
+
+        <div class="field" [class.invalid]="error('usuario')">
+          <label for="usuario">Usuário</label>
+          <input id="usuario" formControlName="usuario" placeholder="seu.usuario" autocomplete="username" />
+          @if (error('usuario'); as msg) { <span class="error">{{ msg }}</span> }
+        </div>
+
+        <div class="field" [class.invalid]="error('email')">
+          <label for="email">E-mail</label>
+          <input id="email" type="email" formControlName="email" placeholder="voce@email.com" autocomplete="email" />
+          @if (error('email'); as msg) { <span class="error">{{ msg }}</span> }
+        </div>
+
+        <div class="field" [class.invalid]="error('telefone')">
+          <label for="telefone">Telefone</label>
+          <input id="telefone" formControlName="telefone" placeholder="(51) 91234-5678" inputmode="numeric" (input)="maskPhone()" />
+          @if (error('telefone'); as msg) { <span class="error">{{ msg }}</span> }
+        </div>
+
+        <div class="field" [class.invalid]="error('cpf')">
+          <label for="cpf">CPF</label>
+          <input id="cpf" formControlName="cpf" placeholder="000.000.000-00" inputmode="numeric" (input)="maskCpf()" />
+          @if (error('cpf'); as msg) { <span class="error">{{ msg }}</span> }
+        </div>
+
+        <div class="field" [class.invalid]="error('nascimento')">
+          <label for="nascimento">Data de nascimento</label>
+          <input id="nascimento" type="date" formControlName="nascimento" />
+          @if (error('nascimento'); as msg) { <span class="error">{{ msg }}</span> }
+        </div>
+
+        <div class="field">
+          <label>Gênero <small>(opcional)</small></label>
+          <div class="radio-group">
+            @for (g of genders; track g) {
+              <label [class.checked]="form.controls.genero.value === g">
+                <input type="radio" formControlName="genero" [value]="g" />
+                {{ g }}
+              </label>
+            }
+          </div>
+        </div>
+
+        <div class="field" [class.invalid]="error('senha')">
+          <label for="senha">Senha</label>
+          <div class="password-wrap">
+            <input id="senha" [type]="showPassword ? 'text' : 'password'" formControlName="senha" placeholder="Mínimo 6 caracteres" autocomplete="new-password" />
+            <button type="button" (click)="showPassword = !showPassword" aria-label="Mostrar senha">
+              <i class="uil" [class.uil-eye]="!showPassword" [class.uil-eye-slash]="showPassword"></i>
+            </button>
+          </div>
+          @if (error('senha'); as msg) { <span class="error">{{ msg }}</span> }
+        </div>
+
+        <div class="field" [class.invalid]="error('confirmar') || mismatch()">
+          <label for="confirmar">Confirmar senha</label>
+          <input id="confirmar" [type]="showPassword ? 'text' : 'password'" formControlName="confirmar" placeholder="Repita a senha" autocomplete="new-password" />
+          @if (error('confirmar'); as msg) {
+            <span class="error">{{ msg }}</span>
+          } @else if (mismatch()) {
+            <span class="error">As senhas não coincidem</span>
+          }
+        </div>
+
+        <label class="checkbox full">
+          <input type="checkbox" formControlName="termos" />
+          Li e aceito os termos de uso e a política de privacidade
+        </label>
+        @if (form.controls.termos.touched && form.controls.termos.invalid) {
+          <span class="error full" style="color: var(--danger); font-size: 0.78rem; margin-top: -10px">
+            Aceite os termos para continuar
+          </span>
+        }
+      </div>
+
+      <button type="submit" class="btn btn-primary btn-block">Criar minha conta</button>
+    </form>
+  </div>
+</section>

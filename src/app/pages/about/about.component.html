@@ -1,0 +1,49 @@
+<section class="hero">
+  <div class="container hero-grid">
+    <div>
+      <span class="eyebrow">Sobre nós</span>
+      <h1>Uma loja feita por quem gosta de <span>andar bem</span>.</h1>
+      <p>
+        Mais do que um trabalho acadêmico, a Um Pé é a realização de uma ideia que junta paixão por tecnologia e a
+        vontade de facilitar o acesso a calçados de qualidade.
+      </p>
+      <a routerLink="/loja" class="btn btn-primary">Conhecer a coleção <i class="uil uil-arrow-right"></i></a>
+    </div>
+    <div class="visual">
+      <img [src]="heroImage" alt="Tênis em destaque" />
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <span class="eyebrow">Nossa história</span>
+    <h2 class="section-title">Como tudo começou</h2>
+    <div class="timeline">
+      @for (t of timeline; track t.step) {
+        <div class="step">
+          <span class="num">{{ t.step }}</span>
+          <h3>{{ t.title }}</h3>
+          <p>{{ t.text }}</p>
+        </div>
+      }
+    </div>
+  </div>
+</section>
+
+<section class="section values-section">
+  <div class="container">
+    <span class="eyebrow">O que você encontra aqui</span>
+    <h2 class="section-title">Um calçado para cada momento</h2>
+    <div class="values">
+      @for (v of values; track v.title) {
+        <div class="value">
+          <i class="uil {{ v.icon }}"></i>
+          <h3>{{ v.title }}</h3>
+          <p>{{ v.text }}</p>
+        </div>
+      }
+    </div>
+    <p class="note">Todos os produtos são selecionados com cuidado, priorizando qualidade garantida.</p>
+  </div>
+</section>

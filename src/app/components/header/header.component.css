@@ -1,0 +1,158 @@
+.header {
+  position: fixed;
+  inset: 0 0 auto 0;
+  height: var(--header-h);
+  z-index: 50;
+  transition: background 0.3s ease, box-shadow 0.3s ease, backdrop-filter 0.3s ease;
+}
+
+.header.scrolled {
+  background: rgba(246, 244, 240, 0.82);
+  backdrop-filter: blur(14px);
+  box-shadow: 0 1px 0 var(--line);
+}
+
+.header-inner {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logo-mark {
+  width: 44px;
+  height: 44px;
+  transition: transform 0.3s ease;
+}
+
+.logo:hover .logo-mark {
+  transform: rotate(-8deg) scale(1.05);
+}
+
+.logo-text {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.15rem;
+  line-height: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.logo-text small {
+  font-family: var(--font-body);
+  font-size: 0.68rem;
+  font-weight: 500;
+  color: var(--muted);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-top: 3px;
+}
+
+.nav {
+  display: flex;
+  gap: 6px;
+  padding: 6px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.7);
+  border: 1px solid var(--line);
+}
+
+.nav a {
+  padding: 8px 18px;
+  border-radius: 999px;
+  font-weight: 500;
+  font-size: 0.92rem;
+  color: var(--ink-soft);
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.nav a:hover {
+  color: var(--ink);
+}
+
+.nav a.active {
+  background: var(--ink);
+  color: #fff;
+}
+
+.nav-mobile-only {
+  display: none;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.login-link {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 500;
+  font-size: 0.92rem;
+  padding: 8px 14px;
+  border-radius: 999px;
+  margin-right: 4px;
+  transition: background 0.2s ease;
+}
+
+.login-link i {
+  font-size: 1.2rem;
+}
+
+.login-link:hover {
+  background: rgba(18, 18, 18, 0.06);
+}
+
+.menu-btn {
+  display: none;
+}
+
+@media (max-width: 860px) {
+  .menu-btn {
+    display: grid;
+  }
+
+  .login-link {
+    display: none;
+  }
+
+  .nav {
+    position: fixed;
+    top: var(--header-h);
+    left: 16px;
+    right: 16px;
+    flex-direction: column;
+    border-radius: var(--radius);
+    background: var(--surface);
+    box-shadow: var(--shadow-lg);
+    padding: 12px;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(-10px);
+    transition: opacity 0.25s ease, transform 0.25s ease;
+  }
+
+  .nav.open {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
+  }
+
+  .nav a {
+    padding: 14px 18px;
+    border-radius: var(--radius-sm);
+  }
+
+  .nav-mobile-only {
+    display: block;
+  }
+}

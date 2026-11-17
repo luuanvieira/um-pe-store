@@ -1,0 +1,59 @@
+<section class="banner">
+  <div class="container">
+    <span class="eyebrow">Loja</span>
+    <h1>Toda a coleção</h1>
+    <p>Tênis esportivos, casuais e sapatos sociais. Clique em um produto para ver os detalhes e escolher o tamanho.</p>
+  </div>
+</section>
+
+<section class="container shop">
+  <div class="toolbar">
+    <div class="chips">
+      @for (f of filters; track f) {
+        <button class="chip" [class.active]="category() === f" (click)="setCategory(f)">
+          {{ f }} <span>{{ count(f) }}</span>
+        </button>
+      }
+    </div>
+
+    <div class="controls">
+      <label class="search">
+        <i class="uil uil-search"></i>
+        <input
+          type="search"
+          placeholder="Buscar produto..."
+          [ngModel]="search()"
+          (ngModelChange)="search.set($event)"
+        />
+      </label>
+      <label class="sort">
+        <i class="uil uil-sort-amount-down"></i>
+        <select [ngModel]="sort()" (ngModelChange)="sort.set($event)" aria-label="Ordenar">
+          <option value="relevancia">Relevância</option>
+          <option value="menor">Menor preço</option>
+          <option value="maior">Maior preço</option>
+          <option value="nome">Nome (A-Z)</option>
+        </select>
+      </label>
+    </div>
+  </div>
+
+  <p class="result-count">
+    {{ results().length }} {{ results().length === 1 ? 'produto encontrado' : 'produtos encontrados' }}
+  </p>
+
+  @if (results().length > 0) {
+    <div class="product-grid">
+      @for (p of results(); track p.id) {
+        <app-product-card [product]="p" />
+      }
+    </div>
+  } @else {
+    <div class="empty-state">
+      <i class="uil uil-search-alt"></i>
+      <h3>Nenhum produto encontrado</h3>
+      <p>Tente outro termo de busca ou limpe os filtros.</p>
+      <button class="btn btn-dark" (click)="clearFilters()">Limpar filtros</button>
+    </div>
+  }
+</section>

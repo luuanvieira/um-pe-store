@@ -1,0 +1,120 @@
+<!-- HERO -->
+<section class="hero">
+  <div class="container hero-grid">
+    <div class="hero-text">
+      <span class="pill"><span class="dot"></span> Nova coleção 2026</span>
+      <h1>Conforto em <span class="highlight">cada passo</span>.</h1>
+      <p>
+        Tênis esportivos, casuais e sapatos sociais escolhidos a dedo para quem pratica esporte e para quem só quer
+        andar bem no dia a dia.
+      </p>
+      <div class="hero-actions">
+        <a routerLink="/loja" class="btn btn-primary">Ver coleção <i class="uil uil-arrow-right"></i></a>
+        <a routerLink="/sobre" class="btn btn-ghost">Nossa história</a>
+      </div>
+      <ul class="stats">
+        <li><strong>10+</strong><span>modelos</span></li>
+        <li><strong>3x</strong><span>sem juros</span></li>
+        <li><strong>30</strong><span>dias p/ troca</span></li>
+      </ul>
+    </div>
+
+    <div class="hero-visual">
+      <div class="circle" [style.background]="heroProducts[current()].tint"></div>
+      <span class="big-word">{{ heroProducts[current()].category }}</span>
+      @for (p of heroProducts; track p.id; let i = $index) {
+        <img [src]="p.image" [alt]="p.name" class="hero-shoe" [class.active]="i === current()" />
+      }
+      <button class="hero-tag" (click)="ui.openProduct(heroProducts[current()])">
+        <span>
+          <small>{{ heroProducts[current()].name }}</small>
+          <strong>{{ heroProducts[current()].price | currency }}</strong>
+        </span>
+        <i class="uil uil-arrow-up-right"></i>
+      </button>
+      <div class="dots">
+        @for (p of heroProducts; track p.id; let i = $index) {
+          <button [class.active]="i === current()" (click)="goTo(i)" [attr.aria-label]="'Ver ' + p.name"></button>
+        }
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAIXA ANIMADA -->
+<div class="marquee" aria-hidden="true">
+  <div class="track">
+    @for (round of [1, 2]; track round) {
+      @for (word of marquee; track word) {
+        <span>{{ word }}</span><i class="uil uil-star"></i>
+      }
+    }
+  </div>
+</div>
+
+<!-- CATEGORIAS -->
+<section class="section">
+  <div class="container">
+    <div class="section-head">
+      <div>
+        <span class="eyebrow">Categorias</span>
+        <h2 class="section-title">Encontre o par ideal</h2>
+        <p class="section-sub">Do treino pesado ao casamento do amigo: tem calçado pra cada momento.</p>
+      </div>
+    </div>
+    <div class="categories">
+      @for (c of categories; track c.name) {
+        <a class="category" routerLink="/loja" [queryParams]="{ categoria: c.name }" [style.background]="c.tint">
+          <div>
+            <h3>{{ c.name }}</h3>
+            <p>{{ c.text }}</p>
+          </div>
+          <img [src]="c.image" [alt]="c.name" />
+          <span class="arrow"><i class="uil uil-arrow-right"></i></span>
+        </a>
+      }
+    </div>
+  </div>
+</section>
+
+<!-- DESTAQUES -->
+<section class="section featured">
+  <div class="container">
+    <div class="section-head">
+      <div>
+        <span class="eyebrow">Destaques</span>
+        <h2 class="section-title">Os mais procurados</h2>
+      </div>
+      <a routerLink="/loja" class="btn btn-ghost">Ver todos <i class="uil uil-arrow-right"></i></a>
+    </div>
+    <div class="product-grid">
+      @for (p of featured; track p.id) {
+        <app-product-card [product]="p" />
+      }
+    </div>
+  </div>
+</section>
+
+<!-- BENEFÍCIOS -->
+<section class="section">
+  <div class="container">
+    <div class="benefits">
+      @for (b of benefits; track b.title) {
+        <div class="benefit">
+          <span class="benefit-icon"><i class="uil {{ b.icon }}"></i></span>
+          <h4>{{ b.title }}</h4>
+          <p>{{ b.text }}</p>
+        </div>
+      }
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="container cta">
+  <div>
+    <h2>Crie sua conta e ganhe <span>10% OFF</span> na primeira compra.</h2>
+    <p>Salve favoritos, acompanhe pedidos e receba novidades antes de todo mundo.</p>
+  </div>
+  <a routerLink="/registrar" class="btn btn-primary">Criar conta grátis</a>
+</section>

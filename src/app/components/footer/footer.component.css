@@ -1,0 +1,119 @@
+.footer {
+  background: var(--ink);
+  color: #cfcac2;
+  padding: 80px 0 32px;
+  margin-top: 40px;
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: 1.6fr 1fr 1fr 1.4fr;
+  gap: 48px;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #fff;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.3rem;
+}
+
+.logo-mark {
+  width: 44px;
+  height: 44px;
+  transition: transform 0.3s ease;
+}
+
+.logo:hover .logo-mark {
+  transform: rotate(-8deg) scale(1.05);
+}
+
+.footer .logo-mark {
+  border-radius: 10px;
+  box-shadow: 0 0 0 1px #333;
+}
+
+.brand p {
+  margin: 18px 0 22px;
+  font-size: 0.92rem;
+  max-width: 320px;
+}
+
+.socials {
+  display: flex;
+  gap: 10px;
+}
+
+.socials a {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid #3a3a3a;
+  display: grid;
+  place-items: center;
+  font-size: 1.1rem;
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.socials a:hover {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+
+.col {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  font-size: 0.92rem;
+}
+
+.col h4 {
+  color: #fff;
+  font-size: 1rem;
+  margin-bottom: 6px;
+}
+
+.col a:hover {
+  color: var(--accent);
+}
+
+.col i {
+  color: var(--accent);
+  margin-right: 4px;
+}
+
+.bottom {
+  margin-top: 64px;
+  padding-top: 24px;
+  border-top: 1px solid #2c2c2c;
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  font-size: 0.85rem;
+}
+
+.bottom a {
+  color: #fff;
+  font-weight: 600;
+}
+
+.bottom a:hover {
+  color: var(--accent);
+}
+
+@media (max-width: 860px) {
+  .footer-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 520px) {
+  .footer-grid {
+    grid-template-columns: 1fr;
+  }
+}
